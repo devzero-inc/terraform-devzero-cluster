@@ -40,6 +40,10 @@ resource "helm_release" "zxporter" {
     {
       name  = "monitoring.prometheus.enabled"
       value = var.provision_prometheus
+    },
+    {
+      name  = "zxporter.dakrUrl"
+      value = var.endpoint
     }
   ], var.zxporter_extra_values)
 
@@ -73,12 +77,20 @@ resource "helm_release" "devzero_operator" {
       value = var.cloud_provider == ""
     },
     {
+      name  = "operator.endpoint"
+      value = var.endpoint
+    },
+    {
       name  = "scheduler.enabled"
       value = var.enable_scheduler
     },
     {
       name  = "scheduler.controlPlaneToken"
       value = devzero_cluster.cluster.token
+    },
+    {
+      name  = "scheduler.controlPlaneAddress"
+      value = var.endpoint
     },
     {
       name  = "agent.enabled"

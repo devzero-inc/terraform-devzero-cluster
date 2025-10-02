@@ -65,7 +65,6 @@ No modules.
 | <a name="input_enable_live_migration_agent"></a> [enable\_live\_migration\_agent](#input\_enable\_live\_migration\_agent) | Whether to enable the live migration agent | `bool` | `false` | no |
 | <a name="input_enable_scheduler"></a> [enable\_scheduler](#input\_enable\_scheduler) | Whether to enable the scheduler | `bool` | `true` | no |
 | <a name="input_endpoint"></a> [endpoint](#input\_endpoint) | The endpoint of the control plane | `string` | `"https://dakr.devzero.io"` | no |
-| <a name="input_operator_annotations"></a> [operator\_annotations](#input\_operator\_annotations) | The annotations to add to the operator | `map(string)` | `{}` | no |
 | <a name="input_operator_extra_values"></a> [operator\_extra\_values](#input\_operator\_extra\_values) | Additional Helm values for the devzero-operator chart (as name->value). | <pre>list(object({<br/>    name  = string<br/>    value = string<br/>  }))</pre> | `[]` | no |
 | <a name="input_provision_prometheus"></a> [provision\_prometheus](#input\_provision\_prometheus) | Whether to provision prometheus | `bool` | `true` | no |
 | <a name="input_runtime"></a> [runtime](#input\_runtime) | The runtime of the cluster. Supported values: containerd, rke2, k3s. | `string` | `"containerd"` | no |

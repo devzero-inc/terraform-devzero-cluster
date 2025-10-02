@@ -26,12 +26,6 @@ variable "provision_prometheus" {
   default     = true
 }
 
-variable "operator_annotations" {
-  type        = map(string)
-  description = "The annotations to add to the operator"
-  default     = {}
-}
-
 variable "enable_scheduler" {
   type        = bool
   description = "Whether to enable the scheduler"
