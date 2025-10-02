@@ -19,7 +19,7 @@ resource "helm_release" "zxporter" {
   name             = "zxporter"
   chart            = "zxporter"
   repository       = "oci://registry-1.docker.io/devzeroinc"
-  namespace        = "devzero"
+  namespace        = "devzero-zxporter"
   create_namespace = true
   atomic           = true
   wait             = true
