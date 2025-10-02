@@ -18,11 +18,12 @@ resource "devzero_cluster" "cluster" {
 resource "helm_release" "zxporter" {
   name             = "zxporter"
   chart            = "zxporter"
-  repository       = "https://devzero-inc.github.io/helm-charts"
+  repository       = "oci://registry-1.docker.io/devzeroinc"
   namespace        = "devzero"
   create_namespace = true
   atomic           = true
   wait             = true
+  version          = "0.0.14"
 
   set = concat([
     {
@@ -56,11 +57,12 @@ resource "helm_release" "zxporter" {
 resource "helm_release" "devzero_operator" {
   name             = "devzero-operator"
   chart            = "dakr-operator"
-  repository       = "https://devzero-inc.github.io/helm-charts"
+  repository       = "oci://registry-1.docker.io/devzeroinc"
   namespace        = "devzero"
   create_namespace = true
   atomic           = true
   wait             = true
+  version          = "0.1.3"
 
   set = concat([
     {
