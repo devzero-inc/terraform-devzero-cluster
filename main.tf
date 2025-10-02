@@ -23,7 +23,7 @@ resource "helm_release" "zxporter" {
   create_namespace = true
   atomic           = true
   wait             = true
-  
+
   set = concat([
     {
       name  = "zxporter.kubeContextName"
@@ -43,11 +43,11 @@ resource "helm_release" "zxporter" {
     }
   ], var.zxporter_extra_values)
 
-  set_sensitive = [ 
+  set_sensitive = [
     {
       name  = "zxporter.clusterToken"
       value = devzero_cluster.cluster.token
-    } 
+    }
   ]
 
   depends_on = [devzero_cluster.cluster]
@@ -105,7 +105,7 @@ resource "helm_release" "devzero_operator" {
     },
   ], var.operator_extra_values)
 
-  set_sensitive = [ 
+  set_sensitive = [
     {
       name  = "operator.clusterToken"
       value = devzero_cluster.cluster.token

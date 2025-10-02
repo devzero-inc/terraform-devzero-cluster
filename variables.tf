@@ -13,7 +13,7 @@ variable "cloud_provider" {
   type        = string
   description = "The cloud provider of the cluster. Supported values: aws, azure, gcp, \"\". Empty string will be treated as no cloud credentials are required."
   default     = ""
-  
+
   validation {
     condition     = contains(["aws", "azure", "gcp", ""], var.cloud_provider)
     error_message = "cloud_provider must be one of: aws, azure, gcp, or empty string (\"\")."
@@ -52,13 +52,13 @@ variable "runtime" {
 variable "containerd_config_path" {
   type        = string
   description = "The path to the containerd config"
-  default = null
+  default     = null
 }
 
 variable "containerd_socket_path" {
   type        = string
   description = "The path to the containerd socket"
-  default = null
+  default     = null
 }
 
 variable "zxporter_extra_values" {

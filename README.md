@@ -1,12 +1,8 @@
 # Terraform module for adding a cluster to your devzero account
 
-Website: https://devzero.io/dashboard
+[Website](https://devzero.io/dashboard)
 
-Docs: https://docs.devzero.io
-
-## Requirements
-
-- [Terraform](https://www.terraform.io/downloads.html)
+[Docs](https://docs.devzero.io)
 
 ## Using the module
 
@@ -32,6 +28,7 @@ module "devzero-cluster" {
 
 | Name | Version |
 |------|---------|
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.1.0 |
 | <a name="requirement_devzero"></a> [devzero](#requirement\_devzero) | >= 0.1.1 |
 | <a name="requirement_helm"></a> [helm](#requirement\_helm) | >= 3.0.2 |
 
