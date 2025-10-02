@@ -30,10 +30,6 @@ resource "helm_release" "zxporter" {
       value = var.cluster_name
     },
     {
-      name  = "zxporter.clusterToken"
-      value = devzero_cluster.cluster.token
-    },
-    {
       name  = "zxporter.k8sProvider"
       value = var.cloud_provider
     },
@@ -46,6 +42,13 @@ resource "helm_release" "zxporter" {
       value = var.endpoint
     }
   ], var.zxporter_extra_values)
+
+  set_sensitive = [ 
+    {
+      name  = "zxporter.clusterToken"
+      value = devzero_cluster.cluster.token
+    } 
+  ]
 
   depends_on = [devzero_cluster.cluster]
 }
@@ -65,16 +68,12 @@ resource "helm_release" "devzero_operator" {
       value = var.cloud_provider
     },
     {
-      name  = "operator.clusterToken"
-      value = devzero_cluster.cluster.token
-    },
-    {
       name  = "operator.clusterName"
       value = var.cluster_name
     },
     {
       name  = "operator.noCloudCreds"
-      value = var.cloud_provider == ""
+      value = tostring(var.cloud_provider == "")
     },
     {
       name  = "operator.endpoint"
@@ -83,10 +82,6 @@ resource "helm_release" "devzero_operator" {
     {
       name  = "scheduler.enabled"
       value = var.enable_scheduler
-    },
-    {
-      name  = "scheduler.controlPlaneToken"
-      value = devzero_cluster.cluster.token
     },
     {
       name  = "scheduler.controlPlaneAddress"
@@ -109,6 +104,17 @@ resource "helm_release" "devzero_operator" {
       value = coalesce(var.containerd_socket_path, lookup(local.containerd_socket_path, var.runtime, "/run/containerd/containerd.sock"))
     },
   ], var.operator_extra_values)
+
+  set_sensitive = [ 
+    {
+      name  = "operator.clusterToken"
+      value = devzero_cluster.cluster.token
+    },
+    {
+      name  = "scheduler.controlPlaneToken"
+      value = devzero_cluster.cluster.token
+    }
+  ]
 
   depends_on = [devzero_cluster.cluster]
 }
