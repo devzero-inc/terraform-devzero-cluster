@@ -35,7 +35,7 @@ resource "helm_release" "zxporter" {
     },
     {
       name  = "monitoring.prometheus.enabled"
-      value = var.provision_prometheus
+      value = tostring(var.provision_prometheus)
     },
     {
       name  = "zxporter.dakrUrl"
@@ -81,7 +81,7 @@ resource "helm_release" "devzero_operator" {
     },
     {
       name  = "scheduler.enabled"
-      value = var.enable_scheduler
+      value = tostring(var.enable_scheduler)
     },
     {
       name  = "scheduler.controlPlaneAddress"
@@ -89,7 +89,7 @@ resource "helm_release" "devzero_operator" {
     },
     {
       name  = "agent.enabled"
-      value = var.enable_live_migration_agent
+      value = tostring(var.enable_live_migration_agent)
     },
     {
       name  = "agent.runtime"
