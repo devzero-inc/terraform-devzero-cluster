@@ -23,7 +23,7 @@ resource "helm_release" "zxporter" {
   create_namespace = true
   atomic           = true
   wait             = true
-  version          = "0.0.14"
+  version          = "0.0.22"
 
   set = concat([
     {
@@ -62,7 +62,7 @@ resource "helm_release" "devzero_operator" {
   create_namespace = true
   atomic           = true
   wait             = true
-  version          = "0.1.3"
+  version          = "0.1.9"
 
   set = concat([
     {
