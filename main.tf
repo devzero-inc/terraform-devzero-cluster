@@ -1,122 +1,29 @@
-locals {
-  containerd_config_path = {
-    containerd = "/etc/containerd/config.toml"
-    rke2       = "/var/lib/rancher/rke2/agent/etc/containerd/config.toml"
-    k3s        = "/var/lib/rancher/k3s/agent/etc/containerd/config.toml"
-  }
-  containerd_socket_path = {
-    containerd = "/run/containerd/containerd.sock"
-    rke2       = "/var/lib/rancher/rke2/agent/containerd/containerd.sock"
-    k3s        = "/var/lib/rancher/k3s/agent/containerd/containerd.sock"
-  }
+# Use sub-modules for better modularity and flexibility
+module "cluster" {
+  source       = "./modules/cluster"
+  cluster_name = var.cluster_name
 }
 
-resource "devzero_cluster" "cluster" {
-  name = var.cluster_name
+module "zxporter" {
+  source             = "./modules/zxporter"
+  cluster_name       = var.cluster_name
+  cluster_token      = module.cluster.cluster_token
+  endpoint           = var.endpoint
+  cloud_provider     = var.cloud_provider
+  enable_prometheus  = var.provision_prometheus
+  set_values         = var.zxporter_extra_values
 }
 
-resource "helm_release" "zxporter" {
-  name             = "zxporter"
-  chart            = "zxporter"
-  repository       = "oci://registry-1.docker.io/devzeroinc"
-  namespace        = "devzero-zxporter"
-  create_namespace = true
-  atomic           = true
-  wait             = true
-  version          = "0.0.22"
-
-  set = concat([
-    {
-      name  = "zxporter.kubeContextName"
-      value = var.cluster_name
-    },
-    {
-      name  = "zxporter.k8sProvider"
-      value = var.cloud_provider
-    },
-    {
-      name  = "monitoring.prometheus.enabled"
-      value = tostring(var.provision_prometheus)
-    },
-    {
-      name  = "zxporter.dakrUrl"
-      value = var.endpoint
-    }
-  ], var.zxporter_extra_values)
-
-  set_sensitive = [
-    {
-      name  = "zxporter.clusterToken"
-      value = devzero_cluster.cluster.token
-    }
-  ]
-
-  depends_on = [devzero_cluster.cluster]
-}
-
-resource "helm_release" "devzero_operator" {
-  name             = "devzero-operator"
-  chart            = "dakr-operator"
-  repository       = "oci://registry-1.docker.io/devzeroinc"
-  namespace        = "devzero"
-  create_namespace = true
-  atomic           = true
-  wait             = true
-  version          = "0.1.9"
-
-  set = concat([
-    {
-      name  = "cloud"
-      value = var.cloud_provider
-    },
-    {
-      name  = "operator.clusterName"
-      value = var.cluster_name
-    },
-    {
-      name  = "operator.noCloudCreds"
-      value = tostring(var.cloud_provider == "")
-    },
-    {
-      name  = "operator.endpoint"
-      value = var.endpoint
-    },
-    {
-      name  = "scheduler.enabled"
-      value = tostring(var.enable_scheduler)
-    },
-    {
-      name  = "scheduler.controlPlaneAddress"
-      value = var.endpoint
-    },
-    {
-      name  = "agent.enabled"
-      value = tostring(var.enable_live_migration_agent)
-    },
-    {
-      name  = "agent.runtime"
-      value = var.runtime
-    },
-    {
-      name  = "agent.containerdConfigPath"
-      value = coalesce(var.containerd_config_path, lookup(local.containerd_config_path, var.runtime, "/etc/containerd/config.toml"))
-    },
-    {
-      name  = "agent.containerdSock"
-      value = coalesce(var.containerd_socket_path, lookup(local.containerd_socket_path, var.runtime, "/run/containerd/containerd.sock"))
-    },
-  ], var.operator_extra_values)
-
-  set_sensitive = [
-    {
-      name  = "operator.clusterToken"
-      value = devzero_cluster.cluster.token
-    },
-    {
-      name  = "scheduler.controlPlaneToken"
-      value = devzero_cluster.cluster.token
-    }
-  ]
-
-  depends_on = [devzero_cluster.cluster]
+module "operator" {
+  source                      = "./modules/operator"
+  cluster_name                = var.cluster_name
+  cluster_token               = module.cluster.cluster_token
+  endpoint                    = var.endpoint
+  cloud_provider              = var.cloud_provider
+  enable_scheduler            = var.enable_scheduler
+  enable_live_migration_agent = var.enable_live_migration_agent
+  runtime                     = var.runtime
+  containerd_config_path      = var.containerd_config_path
+  containerd_socket_path      = var.containerd_socket_path
+  set_values                  = var.operator_extra_values
 }
