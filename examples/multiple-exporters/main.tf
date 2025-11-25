@@ -1,8 +1,7 @@
 # Example: Multiple zxporter instances with different configurations
 
-module "devzero_cluster" {
-  source       = "../../modules/cluster"
-  cluster_name = "multi-exporter-cluster"
+resource "devzero_cluster" "cluster" {
+  name = "multi-exporter-cluster"
 }
 
 # Primary exporter with Prometheus
@@ -10,8 +9,8 @@ module "zxporter_primary" {
   source = "../../modules/zxporter"
   
   release_name      = "zxporter-primary"
-  cluster_name      = module.devzero_cluster.cluster_name
-  cluster_token     = module.devzero_cluster.cluster_token
+  cluster_name      = devzero_cluster.cluster.name
+  cluster_token     = devzero_cluster.cluster.token
   enable_prometheus = true
   
   set_values = [
@@ -28,8 +27,8 @@ module "zxporter_secondary" {
   
   release_name      = "zxporter-apps"
   namespace         = "devzero-apps-monitoring"
-  cluster_name      = module.devzero_cluster.cluster_name
-  cluster_token     = module.devzero_cluster.cluster_token
+  cluster_name      = devzero_cluster.cluster.name
+  cluster_token     = devzero_cluster.cluster.token
   enable_prometheus = false
   
   # Different endpoint for testing/staging
@@ -47,6 +46,6 @@ module "zxporter_secondary" {
 module "operator" {
   source = "../../modules/operator"
   
-  cluster_name  = module.devzero_cluster.cluster_name
-  cluster_token = module.devzero_cluster.cluster_token
+  cluster_name  = devzero_cluster.cluster.name
+  cluster_token = devzero_cluster.cluster.token
 }

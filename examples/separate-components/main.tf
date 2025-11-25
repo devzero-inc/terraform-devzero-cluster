@@ -1,9 +1,8 @@
 # Example: Deploy components separately with full control
 
 # Step 1: Create the cluster
-module "devzero_cluster" {
-  source       = "../../modules/cluster"
-  cluster_name = "my-cluster"
+resource "devzero_cluster" "cluster" {
+  name = "my-cluster"
 }
 
 # Step 2: Deploy zxporter with custom configuration
@@ -11,8 +10,8 @@ module "zxporter" {
   source = "../../modules/zxporter"
   
   # Basic configuration
-  cluster_name  = module.devzero_cluster.cluster_name
-  cluster_token = module.devzero_cluster.cluster_token
+  cluster_name  = devzero_cluster.cluster.name
+  cluster_token = devzero_cluster.cluster.token
   
   # Custom Helm values
   chart_version = "0.0.23"  # Override default version
@@ -40,8 +39,8 @@ module "operator" {
   source = "../../modules/operator"
   
   # Basic configuration
-  cluster_name  = module.devzero_cluster.cluster_name
-  cluster_token = module.devzero_cluster.cluster_token
+  cluster_name  = devzero_cluster.cluster.name
+  cluster_token = devzero_cluster.cluster.token
   
   # Custom settings
   enable_scheduler            = true

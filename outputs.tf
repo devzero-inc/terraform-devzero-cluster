@@ -1,10 +1,10 @@
 output "cluster_id" {
-  value       = module.cluster.cluster_id
+  value       = devzero_cluster.cluster.id
   description = "The ID of the created cluster"
 }
 
 output "cluster_token" {
-  value       = module.cluster.cluster_token
+  value       = devzero_cluster.cluster.token
   sensitive   = true
   description = "The token for the created cluster"
 }

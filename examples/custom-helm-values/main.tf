@@ -1,22 +1,21 @@
 # Example: Using raw YAML values for complete Helm customization
 
-module "devzero_cluster" {
-  source       = "../../modules/cluster"
-  cluster_name = "custom-values-cluster"
+resource "devzero_cluster" "cluster" {
+  name = "custom-values-cluster"
 }
 
 # Using values_yaml for complete control
 module "zxporter_custom" {
   source = "../../modules/zxporter"
   
-  cluster_name  = module.devzero_cluster.cluster_name
-  cluster_token = module.devzero_cluster.cluster_token
+  cluster_name  = devzero_cluster.cluster.name
+  cluster_token = devzero_cluster.cluster.token
   
   # Override ALL values with custom YAML
   values_yaml = yamlencode({
     zxporter = {
-      kubeContextName = module.devzero_cluster.cluster_name
-      clusterToken    = module.devzero_cluster.cluster_token
+      kubeContextName = devzero_cluster.cluster.name
+      clusterToken    = devzero_cluster.cluster.token
       dakrUrl         = "https://dakr.devzero.io"
       k8sProvider     = "azure"
       
@@ -63,8 +62,8 @@ module "zxporter_custom" {
 module "operator_custom" {
   source = "../../modules/operator"
   
-  cluster_name  = module.devzero_cluster.cluster_name
-  cluster_token = module.devzero_cluster.cluster_token
+  cluster_name  = devzero_cluster.cluster.name
+  cluster_token = devzero_cluster.cluster.token
   
   # Base configuration via YAML
   values_yaml = file("${path.module}/operator-values.yaml")
@@ -73,14 +72,14 @@ module "operator_custom" {
   set_values = [
     {
       name  = "operator.clusterName"
-      value = module.devzero_cluster.cluster_name
+      value = devzero_cluster.cluster.name
     }
   ]
   
   set_sensitive_values = [
     {
       name  = "operator.clusterToken"
-      value = module.devzero_cluster.cluster_token
+      value = devzero_cluster.cluster.token
     }
   ]
 }

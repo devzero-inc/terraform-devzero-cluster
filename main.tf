@@ -1,23 +1,24 @@
-# Use sub-modules for better modularity and flexibility
-module "cluster" {
-  source       = "./modules/cluster"
-  cluster_name = var.cluster_name
+# Create the DevZero cluster
+resource "devzero_cluster" "cluster" {
+  name = var.cluster_name
 }
 
+# Deploy zxporter using the module
 module "zxporter" {
   source             = "./modules/zxporter"
   cluster_name       = var.cluster_name
-  cluster_token      = module.cluster.cluster_token
+  cluster_token      = devzero_cluster.cluster.token
   endpoint           = var.endpoint
   cloud_provider     = var.cloud_provider
   enable_prometheus  = var.provision_prometheus
   set_values         = var.zxporter_extra_values
 }
 
+# Deploy operator using the module
 module "operator" {
   source                      = "./modules/operator"
   cluster_name                = var.cluster_name
-  cluster_token               = module.cluster.cluster_token
+  cluster_token               = devzero_cluster.cluster.token
   endpoint                    = var.endpoint
   cloud_provider              = var.cloud_provider
   enable_scheduler            = var.enable_scheduler

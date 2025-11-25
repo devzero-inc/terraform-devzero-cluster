@@ -34,19 +34,22 @@ module "devzero-cluster" {
 
 ## Providers
 
-No providers.
+| Name | Version |
+|------|---------|
+| <a name="provider_devzero"></a> [devzero](#provider\_devzero) | >= 0.1.1 |
 
 ## Modules
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_cluster"></a> [cluster](#module\_cluster) | ./modules/cluster | n/a |
 | <a name="module_operator"></a> [operator](#module\_operator) | ./modules/operator | n/a |
 | <a name="module_zxporter"></a> [zxporter](#module\_zxporter) | ./modules/zxporter | n/a |
 
 ## Resources
 
-No resources.
+| Name | Type |
+|------|------|
+| [devzero_cluster.cluster](https://registry.terraform.io/providers/devzero-inc/devzero/latest/docs/resources/cluster) | resource |
 
 ## Inputs
 
