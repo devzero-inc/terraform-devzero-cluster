@@ -9,6 +9,18 @@ variable "endpoint" {
   default     = "https://dakr.devzero.io"
 }
 
+variable "enable_zxporter" {
+  type        = bool
+  description = "Whether to install the zxporter component"
+  default     = true
+}
+
+variable "enable_operator" {
+  type        = bool
+  description = "Whether to install the devzero-operator component"
+  default     = true
+}
+
 variable "cloud_provider" {
   type        = string
   description = "The cloud provider of the cluster. Supported values: aws, azure, gcp, \"\". Empty string will be treated as no cloud credentials are required."
