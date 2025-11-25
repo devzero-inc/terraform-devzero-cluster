@@ -34,22 +34,19 @@ module "devzero-cluster" {
 
 ## Providers
 
-| Name | Version |
-|------|---------|
-| <a name="provider_devzero"></a> [devzero](#provider\_devzero) | 0.1.1 |
-| <a name="provider_helm"></a> [helm](#provider\_helm) | 3.0.2 |
+No providers.
 
 ## Modules
 
-No modules.
+| Name | Source | Version |
+|------|--------|---------|
+| <a name="module_cluster"></a> [cluster](#module\_cluster) | ./modules/cluster | n/a |
+| <a name="module_operator"></a> [operator](#module\_operator) | ./modules/operator | n/a |
+| <a name="module_zxporter"></a> [zxporter](#module\_zxporter) | ./modules/zxporter | n/a |
 
 ## Resources
 
-| Name | Type |
-|------|------|
-| [devzero_cluster.cluster](https://registry.terraform.io/providers/devzero-inc/devzero/latest/docs/resources/cluster) | resource |
-| [helm_release.devzero_operator](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
-| [helm_release.zxporter](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
+No resources.
 
 ## Inputs
 
@@ -62,15 +59,15 @@ No modules.
 | <a name="input_enable_live_migration_agent"></a> [enable\_live\_migration\_agent](#input\_enable\_live\_migration\_agent) | Whether to enable the live migration agent | `bool` | `false` | no |
 | <a name="input_enable_scheduler"></a> [enable\_scheduler](#input\_enable\_scheduler) | Whether to enable the scheduler | `bool` | `true` | no |
 | <a name="input_endpoint"></a> [endpoint](#input\_endpoint) | The endpoint of the control plane | `string` | `"https://dakr.devzero.io"` | no |
-| <a name="input_operator_extra_values"></a> [operator\_extra\_values](#input\_operator\_extra\_values) | Additional Helm values for the devzero-operator chart (as name->value). | <pre>list(object({<br/>    name  = string<br/>    value = string<br/>  }))</pre> | `[]` | no |
+| <a name="input_operator_extra_values"></a> [operator\_extra\_values](#input\_operator\_extra\_values) | Additional Helm values for the devzero-operator chart (as name->value). | <pre>list(object({<br>    name  = string<br>    value = string<br>  }))</pre> | `[]` | no |
 | <a name="input_provision_prometheus"></a> [provision\_prometheus](#input\_provision\_prometheus) | Whether to provision prometheus | `bool` | `true` | no |
 | <a name="input_runtime"></a> [runtime](#input\_runtime) | The runtime of the cluster. Supported values: containerd, rke2, k3s. | `string` | `"containerd"` | no |
-| <a name="input_zxporter_extra_values"></a> [zxporter\_extra\_values](#input\_zxporter\_extra\_values) | Additional Helm values for the zxporter chart (as name->value). | <pre>list(object({<br/>    name  = string<br/>    value = string<br/>  }))</pre> | `[]` | no |
+| <a name="input_zxporter_extra_values"></a> [zxporter\_extra\_values](#input\_zxporter\_extra\_values) | Additional Helm values for the zxporter chart (as name->value). | <pre>list(object({<br>    name  = string<br>    value = string<br>  }))</pre> | `[]` | no |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
-| <a name="output_cluster_id"></a> [cluster\_id](#output\_cluster\_id) | n/a |
-| <a name="output_cluster_token"></a> [cluster\_token](#output\_cluster\_token) | n/a |
+| <a name="output_cluster_id"></a> [cluster\_id](#output\_cluster\_id) | The ID of the created cluster |
+| <a name="output_cluster_token"></a> [cluster\_token](#output\_cluster\_token) | The token for the created cluster |
 <!-- END_TF_DOCS -->
