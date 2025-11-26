@@ -36,8 +36,8 @@ module "devzero-cluster" {
 
 | Name | Version |
 |------|---------|
-| <a name="provider_devzero"></a> [devzero](#provider\_devzero) | 0.1.1 |
-| <a name="provider_helm"></a> [helm](#provider\_helm) | 3.0.2 |
+| <a name="provider_devzero"></a> [devzero](#provider\_devzero) | >= 0.1.1 |
+| <a name="provider_helm"></a> [helm](#provider\_helm) | >= 3.0.2 |
 
 ## Modules
 
@@ -60,12 +60,14 @@ No modules.
 | <a name="input_containerd_config_path"></a> [containerd\_config\_path](#input\_containerd\_config\_path) | The path to the containerd config | `string` | `null` | no |
 | <a name="input_containerd_socket_path"></a> [containerd\_socket\_path](#input\_containerd\_socket\_path) | The path to the containerd socket | `string` | `null` | no |
 | <a name="input_enable_live_migration_agent"></a> [enable\_live\_migration\_agent](#input\_enable\_live\_migration\_agent) | Whether to enable the live migration agent | `bool` | `false` | no |
+| <a name="input_enable_operator"></a> [enable\_operator](#input\_enable\_operator) | Whether to install the devzero-operator component | `bool` | `true` | no |
 | <a name="input_enable_scheduler"></a> [enable\_scheduler](#input\_enable\_scheduler) | Whether to enable the scheduler | `bool` | `true` | no |
+| <a name="input_enable_zxporter"></a> [enable\_zxporter](#input\_enable\_zxporter) | Whether to install the zxporter component | `bool` | `true` | no |
 | <a name="input_endpoint"></a> [endpoint](#input\_endpoint) | The endpoint of the control plane | `string` | `"https://dakr.devzero.io"` | no |
-| <a name="input_operator_extra_values"></a> [operator\_extra\_values](#input\_operator\_extra\_values) | Additional Helm values for the devzero-operator chart (as name->value). | <pre>list(object({<br/>    name  = string<br/>    value = string<br/>  }))</pre> | `[]` | no |
+| <a name="input_operator_extra_values"></a> [operator\_extra\_values](#input\_operator\_extra\_values) | Additional Helm values for the devzero-operator chart (as name->value). | <pre>list(object({<br>    name  = string<br>    value = string<br>  }))</pre> | `[]` | no |
 | <a name="input_provision_prometheus"></a> [provision\_prometheus](#input\_provision\_prometheus) | Whether to provision prometheus | `bool` | `true` | no |
 | <a name="input_runtime"></a> [runtime](#input\_runtime) | The runtime of the cluster. Supported values: containerd, rke2, k3s. | `string` | `"containerd"` | no |
-| <a name="input_zxporter_extra_values"></a> [zxporter\_extra\_values](#input\_zxporter\_extra\_values) | Additional Helm values for the zxporter chart (as name->value). | <pre>list(object({<br/>    name  = string<br/>    value = string<br/>  }))</pre> | `[]` | no |
+| <a name="input_zxporter_extra_values"></a> [zxporter\_extra\_values](#input\_zxporter\_extra\_values) | Additional Helm values for the zxporter chart (as name->value). | <pre>list(object({<br>    name  = string<br>    value = string<br>  }))</pre> | `[]` | no |
 
 ## Outputs
 

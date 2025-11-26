@@ -16,6 +16,8 @@ resource "devzero_cluster" "cluster" {
 }
 
 resource "helm_release" "zxporter" {
+  count = var.enable_zxporter ? 1 : 0
+
   name             = "zxporter"
   chart            = "zxporter"
   repository       = "oci://registry-1.docker.io/devzeroinc"
@@ -55,6 +57,8 @@ resource "helm_release" "zxporter" {
 }
 
 resource "helm_release" "devzero_operator" {
+  count = var.enable_operator ? 1 : 0
+
   name             = "devzero-operator"
   chart            = "dakr-operator"
   repository       = "oci://registry-1.docker.io/devzeroinc"
