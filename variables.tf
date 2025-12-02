@@ -90,3 +90,15 @@ variable "operator_extra_values" {
   description = "Additional Helm values for the devzero-operator chart (as name->value)."
   default     = []
 }
+
+variable "zxporter_chart_version" {
+  type        = string
+  description = "The Helm chart version for zxporter"
+  default     = "0.0.26"
+}
+
+variable "operator_chart_version" {
+  type        = string
+  description = "The Helm chart version for devzero-operator"
+  default     = "0.1.14"
+}
