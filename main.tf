@@ -25,7 +25,7 @@ resource "helm_release" "zxporter" {
   create_namespace = true
   atomic           = true
   wait             = true
-  version          = "0.0.22"
+  version          = var.zxporter_chart_version
 
   set = concat([
     {
@@ -66,7 +66,7 @@ resource "helm_release" "devzero_operator" {
   create_namespace = true
   atomic           = true
   wait             = true
-  version          = "0.1.9"
+  version          = var.operator_chart_version
 
   set = concat([
     {
