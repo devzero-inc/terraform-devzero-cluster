@@ -102,3 +102,15 @@ variable "operator_chart_version" {
   description = "The Helm chart version for devzero-operator"
   default     = "0.1.49"
 }
+
+variable "namespace" {
+  type        = string
+  description = "Namespace for zxporter and devzero-operator."
+  default     = "devzero-system"
+}
+
+variable "create_namespace" {
+  type        = bool
+  description = "Whether this module creates the namespace. Set false when the caller manages it."
+  default     = true
+}

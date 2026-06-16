@@ -31,6 +31,7 @@ module "devzero-cluster" {
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.1.0 |
 | <a name="requirement_devzero"></a> [devzero](#requirement\_devzero) | >= 0.1.1 |
 | <a name="requirement_helm"></a> [helm](#requirement\_helm) | >= 3.0.2 |
+| <a name="requirement_kubernetes"></a> [kubernetes](#requirement\_kubernetes) | >= 2.0 |
 
 ## Providers
 
@@ -38,6 +39,7 @@ module "devzero-cluster" {
 |------|---------|
 | <a name="provider_devzero"></a> [devzero](#provider\_devzero) | 0.1.5 |
 | <a name="provider_helm"></a> [helm](#provider\_helm) | 3.1.1 |
+| <a name="provider_kubernetes"></a> [kubernetes](#provider\_kubernetes) | >= 2.0 |
 
 ## Modules
 
@@ -50,6 +52,7 @@ No modules.
 | [devzero_cluster.cluster](https://registry.terraform.io/providers/devzero-inc/devzero/latest/docs/resources/cluster) | resource |
 | [helm_release.devzero_operator](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
 | [helm_release.zxporter](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
+| [kubernetes_namespace_v1.this](https://registry.terraform.io/providers/hashicorp/kubernetes/latest/docs/resources/namespace_v1) | resource |
 
 ## Inputs
 
@@ -59,11 +62,13 @@ No modules.
 | <a name="input_cluster_name"></a> [cluster\_name](#input\_cluster\_name) | The name of the cluster | `string` | n/a | yes |
 | <a name="input_containerd_config_path"></a> [containerd\_config\_path](#input\_containerd\_config\_path) | The path to the containerd config | `string` | `null` | no |
 | <a name="input_containerd_socket_path"></a> [containerd\_socket\_path](#input\_containerd\_socket\_path) | The path to the containerd socket | `string` | `null` | no |
+| <a name="input_create_namespace"></a> [create\_namespace](#input\_create\_namespace) | Whether this module creates the namespace. Set false when the caller manages it. | `bool` | `true` | no |
 | <a name="input_enable_live_migration_agent"></a> [enable\_live\_migration\_agent](#input\_enable\_live\_migration\_agent) | Whether to enable the live migration agent | `bool` | `false` | no |
 | <a name="input_enable_operator"></a> [enable\_operator](#input\_enable\_operator) | Whether to install the devzero-operator component | `bool` | `true` | no |
 | <a name="input_enable_scheduler"></a> [enable\_scheduler](#input\_enable\_scheduler) | Whether to enable the scheduler | `bool` | `true` | no |
 | <a name="input_enable_zxporter"></a> [enable\_zxporter](#input\_enable\_zxporter) | Whether to install the zxporter component | `bool` | `true` | no |
 | <a name="input_endpoint"></a> [endpoint](#input\_endpoint) | The endpoint of the control plane | `string` | `"https://dakr.devzero.io"` | no |
+| <a name="input_namespace"></a> [namespace](#input\_namespace) | Namespace for zxporter and devzero-operator. | `string` | `"devzero-system"` | no |
 | <a name="input_operator_chart_version"></a> [operator\_chart\_version](#input\_operator\_chart\_version) | The Helm chart version for devzero-operator | `string` | `"0.1.49"` | no |
 | <a name="input_operator_extra_values"></a> [operator\_extra\_values](#input\_operator\_extra\_values) | Additional Helm values for the devzero-operator chart (as name->value). | <pre>list(object({<br>    name  = string<br>    value = string<br>  }))</pre> | `[]` | no |
 | <a name="input_provision_prometheus"></a> [provision\_prometheus](#input\_provision\_prometheus) | Whether to provision prometheus | `bool` | `true` | no |
