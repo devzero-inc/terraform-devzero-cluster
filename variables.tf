@@ -94,11 +94,11 @@ variable "operator_extra_values" {
 variable "zxporter_chart_version" {
   type        = string
   description = "The Helm chart version for zxporter"
-  default     = "0.0.26"
+  default     = "0.0.81"
 }
 
 variable "operator_chart_version" {
   type        = string
   description = "The Helm chart version for devzero-operator"
-  default     = "0.1.14"
+  default     = "0.1.49"
 }
