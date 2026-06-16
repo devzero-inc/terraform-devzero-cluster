@@ -15,14 +15,22 @@ resource "devzero_cluster" "cluster" {
   name = var.cluster_name
 }
 
+resource "kubernetes_namespace_v1" "this" {
+  count = var.create_namespace ? 1 : 0
+
+  metadata {
+    name = var.namespace
+  }
+}
+
 resource "helm_release" "zxporter" {
   count = var.enable_zxporter ? 1 : 0
 
   name             = "zxporter"
   chart            = "zxporter"
   repository       = "oci://registry-1.docker.io/devzeroinc"
-  namespace        = "devzero-zxporter"
-  create_namespace = true
+  namespace        = var.namespace
+  create_namespace = false
   atomic           = true
   wait             = true
   version          = var.zxporter_chart_version
@@ -53,7 +61,7 @@ resource "helm_release" "zxporter" {
     }
   ]
 
-  depends_on = [devzero_cluster.cluster]
+  depends_on = [devzero_cluster.cluster, kubernetes_namespace_v1.this]
 }
 
 resource "helm_release" "devzero_operator" {
@@ -62,8 +70,8 @@ resource "helm_release" "devzero_operator" {
   name             = "devzero-operator"
   chart            = "dakr-operator"
   repository       = "oci://registry-1.docker.io/devzeroinc"
-  namespace        = "devzero"
-  create_namespace = true
+  namespace        = var.namespace
+  create_namespace = false
   atomic           = true
   wait             = true
   version          = var.operator_chart_version
@@ -122,5 +130,5 @@ resource "helm_release" "devzero_operator" {
     }
   ]
 
-  depends_on = [devzero_cluster.cluster]
+  depends_on = [devzero_cluster.cluster, kubernetes_namespace_v1.this]
 }
