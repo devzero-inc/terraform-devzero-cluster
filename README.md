@@ -68,7 +68,7 @@ No modules.
 | <a name="input_operator_extra_values"></a> [operator\_extra\_values](#input\_operator\_extra\_values) | Additional Helm values for the devzero-operator chart (as name->value). | <pre>list(object({<br>    name  = string<br>    value = string<br>  }))</pre> | `[]` | no |
 | <a name="input_provision_prometheus"></a> [provision\_prometheus](#input\_provision\_prometheus) | Whether to provision prometheus | `bool` | `true` | no |
 | <a name="input_runtime"></a> [runtime](#input\_runtime) | The runtime of the cluster. Supported values: containerd, rke2, k3s. | `string` | `"containerd"` | no |
-| <a name="input_zxporter_chart_version"></a> [zxporter\_chart\_version](#input\_zxporter\_chart\_version) | The Helm chart version for zxporter | `string` | `"0.0.81"` | no |
+| <a name="input_zxporter_chart_version"></a> [zxporter\_chart\_version](#input\_zxporter\_chart\_version) | The Helm chart version for zxporter | `string` | `"0.0.59"` | no |
 | <a name="input_zxporter_extra_values"></a> [zxporter\_extra\_values](#input\_zxporter\_extra\_values) | Additional Helm values for the zxporter chart (as name->value). | <pre>list(object({<br>    name  = string<br>    value = string<br>  }))</pre> | `[]` | no |
 
 ## Outputs
