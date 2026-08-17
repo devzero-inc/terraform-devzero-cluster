@@ -27,3 +27,9 @@ override.tf.json
 # Ignore CLI configuration files
 .terraformrc
 terraform.rc
+
+# Locally generated knowledge graph (graphify)
+graphify-out/
+
+# Local Claude Code tooling config (CLAUDE.md is intentionally tracked)
+.claude/

@@ -1,18 +1,18 @@
 # Example: Using extra_values to fully customize Helm chart values
 module "devzero_cluster" {
   source = ".."
-  
+
   cluster_name = "custom-cluster"
-  
+
   # Deploy both components with extensive customization
   enable_zxporter = true
   enable_operator = true
-  
+
   # Override any Helm value for zxporter
   zxporter_extra_values = [
     {
-      name  = "zxporter.image.tag"
-      value = "0.0.23"  # Override default chart version
+      name  = "image.tag"
+      value = "v0.1.8" # Pin a specific image build; chart default is v<appVersion>
     },
     {
       name  = "zxporter.nodeSelector.workload-type"
@@ -39,12 +39,12 @@ module "devzero_cluster" {
       value = "NoSchedule"
     }
   ]
-  
+
   # Override any Helm value for operator
   operator_extra_values = [
     {
-      name  = "operator.image.tag"
-      value = "0.1.10"  # Override default chart version
+      name  = "image.tag"
+      value = "v0.1.61" # Pin a specific image build; chart default is v<appVersion>
     },
     {
       name  = "scheduler.resources.requests.cpu"
