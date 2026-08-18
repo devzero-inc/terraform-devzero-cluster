@@ -1,17 +1,17 @@
 # Example: Deploy only zxporter (monitoring/exporter component)
 module "devzero_cluster" {
   source = ".."
-  
-  cluster_name      = "monitoring-cluster"
-  cloud_provider    = "aws"
-  
+
+  cluster_name   = "monitoring-cluster"
+  cloud_provider = "aws"
+
   # Enable only zxporter
   enable_zxporter = true
   enable_operator = false
-  
+
   # Configure prometheus monitoring
   provision_prometheus = true
-  
+
   # Custom zxporter configuration
   zxporter_extra_values = [
     {
