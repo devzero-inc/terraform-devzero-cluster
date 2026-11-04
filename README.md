@@ -11,25 +11,44 @@ A module to add a cluster to your devzero account
 Requires `devzero-inc/devzero` and `hashicorp/helm`
 
 ```hcl
+terraform {
+    required_providers {
+        devzero = {
+            source  = "devzero-inc/devzero"
+            version = ">= 0.3.0"
+        }
+    }
+}
+
 provider "devzero" {
     team_id = "YOUR_TEAM_ID"
     token = "YOUR_SERVICE_ACCOUNT_TOKEN"
 }
 
 module "devzero-cluster" {
-    source = "devzero-inc/cluster"
+    source  = "devzero-inc/cluster/devzero"
+    version = "~> 0.1"
 
     cluster_name = "example-cluster"
 }
 ```
 
-The provider takes a service account's token (`dzs-`), not a person's: with a person's token, destroying a `devzero_team` is that person's leave of the team.
+Drive the provider with a service account's token (`dzs-`). The provider accepts a person's token, but with it destroying a `devzero_team` is that person's leave of the team, and a last member's leave deletes the team.
 
 ### A partner's customer cluster
 
-A partner starts a team for its customer and registers the customer's cluster in it. The provider runs as the partner's team.
+A partner starts a team for its customer and registers the customer's cluster in it. The provider runs as the partner's team. `member_emails` must name a person who is Admin of the partner's team: the service account joins the new team as Developer, and a start with no person as Admin is refused.
 
 ```hcl
+terraform {
+    required_providers {
+        devzero = {
+            source  = "devzero-inc/devzero"
+            version = ">= 0.3.0"
+        }
+    }
+}
+
 provider "devzero" {
     team_id = "PARTNER_TEAM_ID"
     token = "YOUR_SERVICE_ACCOUNT_TOKEN"
@@ -42,7 +61,8 @@ resource "devzero_team" "acme" {
 }
 
 module "acme-cluster" {
-    source = "devzero-inc/cluster"
+    source  = "devzero-inc/cluster/devzero"
+    version = "~> 0.1"
 
     cluster_name = "acme-prod"
     team_id      = devzero_team.acme.id
@@ -65,7 +85,7 @@ module "acme-cluster" {
 
 | Name | Version |
 |------|---------|
-| <a name="provider_devzero"></a> [devzero](#provider\_devzero) | 0.1.5 |
+| <a name="provider_devzero"></a> [devzero](#provider\_devzero) | >= 0.3.0 |
 | <a name="provider_helm"></a> [helm](#provider\_helm) | 3.1.1 |
 | <a name="provider_kubernetes"></a> [kubernetes](#provider\_kubernetes) | >= 2.0 |
 
