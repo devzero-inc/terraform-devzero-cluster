@@ -3,6 +3,12 @@ variable "cluster_name" {
   description = "The name of the cluster"
 }
 
+variable "team_id" {
+  type        = string
+  description = "ID of the DevZero team the cluster is registered in, such as a devzero_team's id. Unset, the cluster registers in the provider's team_id. It is fixed once the cluster is registered: a change is refused at plan, so the module never moves or re-creates a cluster."
+  default     = null
+}
+
 variable "endpoint" {
   type        = string
   description = "The endpoint of the control plane"
@@ -94,13 +100,13 @@ variable "operator_extra_values" {
 variable "zxporter_chart_version" {
   type        = string
   description = "The Helm chart version for zxporter"
-  default     = "0.1.8"
+  default     = "0.0.59"
 }
 
 variable "operator_chart_version" {
   type        = string
   description = "The Helm chart version for devzero-operator"
-  default     = "0.1.61"
+  default     = "0.1.49"
 }
 
 variable "namespace" {
