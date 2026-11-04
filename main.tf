@@ -12,7 +12,8 @@ locals {
 }
 
 resource "devzero_cluster" "cluster" {
-  name = var.cluster_name
+  name    = var.cluster_name
+  team_id = var.team_id
 }
 
 resource "kubernetes_namespace_v1" "this" {
