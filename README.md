@@ -33,7 +33,7 @@ module "devzero-cluster" {
 }
 ```
 
-Drive the provider with a service account's token (`dzs-`). The provider accepts a person's token, but with it destroying a `devzero_team` is that person's leave of the team, and a last member's leave deletes the team.
+Drive the provider with a service account's token (`dzs-`). The provider accepts a person's token, but with it destroying a `devzero_team` is that person's leave of the team: a last member's leave deletes the team, unless DevZero refuses it, as it does once a cluster in the team has reported.
 
 ### A partner's customer cluster
 

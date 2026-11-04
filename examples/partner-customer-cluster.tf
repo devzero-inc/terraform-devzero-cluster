@@ -1,8 +1,9 @@
 # Example: A partner starts a customer's team and registers the customer's
 # cluster in it. The provider runs as the partner's team, with a service
 # account's token (dzs-). A person's token is accepted, but destroying a
-# devzero_team with it is that person's leave, and a last member's leave
-# deletes the team.
+# devzero_team with it is that person's leave: a last member's leave deletes
+# the team, unless DevZero refuses it, as it does once a cluster in the team
+# has reported.
 terraform {
   required_providers {
     devzero = {
