@@ -27,7 +27,7 @@ provider "devzero" {
 
 module "devzero-cluster" {
     source  = "devzero-inc/cluster/devzero"
-    version = "~> 0.1"
+    version = "~> 0.2"
 
     cluster_name = "example-cluster"
 }
@@ -62,7 +62,7 @@ resource "devzero_team" "acme" {
 
 module "acme-cluster" {
     source  = "devzero-inc/cluster/devzero"
-    version = "~> 0.1"
+    version = "~> 0.2"
 
     cluster_name = "acme-prod"
     team_id      = devzero_team.acme.id
