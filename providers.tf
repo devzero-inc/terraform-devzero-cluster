@@ -3,7 +3,7 @@ terraform {
   required_providers {
     devzero = {
       source  = "devzero-inc/devzero"
-      version = ">= 0.1.1"
+      version = ">= 0.3.0"
     }
 
     helm = {
